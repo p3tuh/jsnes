@@ -8,7 +8,7 @@
 <body>
 
   <div id="emulator"></div>
-    <a href='localhost:8000/player2.html?8595'> URL </a>
+    <a href='localhost:8000/player2.html8596'> URL </a>
      <button id='testing'>D</button>
     <script src="http://cdn.peerjs.com/0.3/peer.js"></script>
     <script src="lib/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
@@ -24,16 +24,15 @@
     <script src="source/ui.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
 
-      var rtcId = 8595;
+      var rtcId = 8596;
 
       var url = 'localhost:8000/player2.html?' + rtcId; 
 
-      var peer = new Peer(rtcId, {key: 'j994bvub6smdkj4i'});
+      var peer = new Peer(rtcId, {key: 'j994bvub6smdkj4i', debug: 3});
 
       peer.on('connection', function (connection) {
-          console.log(peer);
         connection.on('open', function() {  
-            console.log('OPEN!!!!!');
+            console.log('connection OPEN!!!!!');
 
           connection.on('data', function(data) {
             console.log('here comes the D...ata!');
