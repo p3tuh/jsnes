@@ -4,12 +4,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>JSNES: A JavaScript NES emulator</title>
 </head>
-  
-<body>
 
-  <div id="emulator"></div>
-    <a href='localhost:8000/player2.html?8595'> URL </a>
-     <button id='testing'>D</button>
+<body>
+    <h1>JSNES</h1>
+    
+    <div id="emulator"></div>
+    <button id='testing'>D</button>
     <script src="http://cdn.peerjs.com/0.3/peer.js"></script>
     <script src="lib/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="lib/dynamicaudio-min.js" type="text/javascript" charset="utf-8"></script>
@@ -24,29 +24,33 @@
     <script src="source/ui.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
 
-      var rtcId = 8595;
 
-      var url = 'localhost:8000/player2.html?' + rtcId; 
+      var rtcId = location.search.slice(1);
 
-      var peer = new Peer(rtcId, {key: 'j994bvub6smdkj4i'});
+// Establish PeerJs connection
+    var peer = new Peer('player2' + rtcId, {key: 'j994bvub6smdkj4i'});
 
-      peer.on('connection', function (connection) {
-          console.log(peer);
-        connection.on('open', function() {  
-            console.log('OPEN!!!!!');
+// Connect to your game
+    peer.on('open', function (){
+      var c = peer.connect(rtcId);
 
-          connection.on('data', function(data) {
-            console.log('here comes the D...ata!');
-            console.log(data);
-            // Handle data sent from phone. Translate into game button keyup/keydown.
-          });
-        });
+      c.on('open', function (data) {
+        console.log('hello peter');
+      });
+      c.send('DDDDD');
+
+      $('#testing').click(function(){
+        c.send('ddddd');
+        console.log('button pressed');
       });
 
-      // var conn = peer.connect('other');
-      // conn.on('open', function() {
-      //   conn.send('hi');
-      // });
+      connection.on('data', function(data) {
+        console.log('here comes the D...ata!');
+        console.log(data);
+        // Handle data sent from phone. Translate into game button keyup/keydown.
+      });
+
+    });
 
         var nes;
         $(function() {
