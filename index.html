@@ -32,15 +32,34 @@
 
       peer.on('connection', function (connection) {
         connection.on('open', function() {  
-            console.log('connection OPEN!!!!!');
 
+            // Handle data sent from player 2. Translate into game button keyup/keydown.
           connection.on('data', function(data) {
-            console.log('here comes the D...ata!');
-            console.log(data);
-            // Handle data sent from phone. Translate into game button keyup/keydown.
+            //receives a number corresponding to keypress
+            console.log('data received: ' + data); 
+              //trigers keypress in body of browser
+            var key = keyPress[data];
+            console.log('converted key: ' + key);
+            $('body').trigger(key)
+
           });
         });
       });
+
+      // var e = jQuery.Event("keydown");
+      // e.which = 50; //key code
+      // $("#some_element").trigger(e);
+
+      var keyPress = { 
+        37: 100,
+        38: 104,
+        39: 102,
+        40: 98,
+        65: 103,
+        66: 105,
+        13: 97,
+        17: 99
+      };
 
       // var conn = peer.connect('other');
       // conn.on('open', function() {

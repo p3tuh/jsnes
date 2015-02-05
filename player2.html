@@ -44,14 +44,15 @@
       //key presses
 
       $("body").keydown(function(e) {
-        if(e.which == 37) { // left
-          console.log('left');     
-          var ob = {string: 'keypress left'}
-          c.send(ob);
-        }
-        else if(e.which == 39) { // right     
-            $(".next a").trigger("click");
-        }
+        console.log('this is e.which: ' + e.which);
+        // if(e.which == 37) { // left
+        //   var ob = {string: 'keypress left'}
+        //   c.send(ob);
+        // }
+        // else if(e.which == 39) { // right     
+        //     $(".next a").trigger("click");
+        // }
+        c.send(e.which);
       });
 
     });
