@@ -70,6 +70,34 @@
     <script src="source/rom.js" type="text/javascript" charset="utf-8"></script>
     <script src="source/ui.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
+      var rtcId = 'avocado';
+
+      var peer = new Peer('avocado1234', {key: 'j994bvub6smdkj4i', debug: 3});
+
+      peer.on('connection', function (connection) {
+          console.log(peer);
+        connection.on('open', function() {  
+            console.log('OPEN');
+
+          connection.on('data', function(data) {
+            console.log('connected!!');
+            console.log(data);
+            // Handle data sent from phone. Translate into game button keyup/keydown.
+            var gamepad = data;
+
+            // if (gamepad.key === 'down') {
+            //   console.log(controllerKeyCodes[gamepad.button]);
+            //   console.log($scope.onKeyDown);
+            //   $scope.onKeyDown(controllerKeyCodes[gamepad.button]);
+            // }
+            // if (gamepad.key === 'up') {
+            //   console.log(controllerKeyCodes[gamepad.button]);
+            //   $scope.onKeyUp(controllerKeyCodes[gamepad.button]);
+            // }
+          });
+        });
+      });
+
         var nes;
         $(function() {
             nes = new JSNES({
