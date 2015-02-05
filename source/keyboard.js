@@ -68,6 +68,7 @@ JSNES.Keyboard.prototype = {
     },
 
     keyDown: function(evt) {
+        console.log(evt);
         if (!this.setKey(evt.keyCode, 0x41) && evt.preventDefault) {
             evt.preventDefault();
         }

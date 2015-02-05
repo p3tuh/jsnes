@@ -40,23 +40,22 @@
               //trigers keypress in body of browser
             var key = keyPress[data];
             console.log('converted key: ' + key);
-            $('body').trigger(key)
-
+            $('.nes-screen').trigger(press)
           });
         });
       });
 
-      // var e = jQuery.Event("keydown");
-      // e.which = 50; //key code
-      // $("#some_element").trigger(e);
+      var press = jQuery.Event("keypress");
+      press.ctrlKey = false;
+      press.which = 13;
 
       var keyPress = { 
         37: 100,
         38: 104,
         39: 102,
         40: 98,
-        65: 103,
-        66: 105,
+        88: 103,
+        90: 105,
         13: 97,
         17: 99
       };
