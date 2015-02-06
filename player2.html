@@ -12,7 +12,7 @@
     <script src="source/nes.js" type="text/javascript" charset="utf-8"></script>
     <script src="source/utils.js" type="text/javascript" charset="utf-8"></script>
     <script src="source/cpu.js" type="text/javascript" charset="utf-8"></script>
-    <script src="source/keyboard.js" type="text/javascript" charset="utf-8"></script>
+    <script src="source/keyboard2.js" type="text/javascript" charset="utf-8"></script>
     <script src="source/mappers.js" type="text/javascript" charset="utf-8"></script>
     <script src="source/papu.js" type="text/javascript" charset="utf-8"></script>
     <script src="source/ppu.js" type="text/javascript" charset="utf-8"></script>
@@ -49,9 +49,18 @@
         c.send(stroke);
       });
 
+        //on click of restart, send restart method to other player
+      $( ".nes-restart" ).click(function() {
+        c.send({method: 'restart'});
+      });
+        //on click of pause, send pause method to other player
+      $( ".nes-pause" ).click(function() {
+        c.send({method: 'pause'});
+      });
+
       c.on('data', function(data) {
+        console.log(data);
         var convertedKey = keyPress[data.which];
-        console.log(data.type);
         console.log(convertedKey);
         if (data.type === 'keyup') {
           nes.keyboard.keyUp({keyCode: convertedKey});
@@ -61,7 +70,15 @@
           nes.keyboard.keyDown({keyCode: convertedKey});
           // nes.frame();
         }
-
+          //Restart if other player clicks restart
+        // if (data.method === 'restart') {
+        //   $('.nes-restart').trigger('click');
+        // }
+        //   //pause if other player clicks pause
+        // if (data.method === 'pause') {
+        //   $('.nes-pause').trigger('click');
+        // }
+        
       });
 
     });

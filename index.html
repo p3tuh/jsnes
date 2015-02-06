@@ -41,26 +41,45 @@
               nes.keyboard.keyUp({keyCode: convertedKey});
               // nes.frame();
             }
+
             if (data.type === 'keydown') {
               nes.keyboard.keyDown({keyCode: convertedKey});
               // nes.frame();
             }
+              Restart if other player clicks restart
+            if (data.method === 'restart') {
+              console.log('restart');
+              $('.nes-restart').trigger('click');
+            }
+              //pause if other player clicks pause
+            if (data.method === 'pause') {
+              $('.nes-pause').trigger('click');
+            }
           }); 
 
-        //sending keydown
-      $("body").keydown(function(e) {
-          console.log(e);
-        var stroke = {type: 'keydown', which: e.which};
+            //sending keydown
+          $("body").keydown(function(e) {
+              console.log(e);
+            var stroke = {type: 'keydown', which: e.which};
 
-        connection.send(stroke);
-      });
-        //sending keyup
-      $('body').keyup(function(e) {
-        var stroke = {type: 'keyup', which: e.which};
+            connection.send(stroke);
+          });
+            //sending keyup
+          $('body').keyup(function(e) {
+            var stroke = {type: 'keyup', which: e.which};
 
-        connection.send(stroke);
-      });  
+            connection.send(stroke);
+          }); 
+
+            // if player presses restart, send method to other player
+          $( ".nes-restart" ).click(function() {
+            connection.send({method: 'restart'});
+          });
         
+          $( ".nes-pause" ).click(function() {
+            connection.send({method: 'pause'});
+          });
+
         });
 
     });
