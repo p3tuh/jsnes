@@ -47,10 +47,24 @@
               // nes.frame();
             }
           }); 
-        });
-      });
 
-      var e = $.Event("keydown", {keyCode: 39});
+        //sending keydown
+      $("body").keydown(function(e) {
+          console.log(e);
+        var stroke = {type: 'keydown', which: e.which};
+
+        connection.send(stroke);
+      });
+        //sending keyup
+      $('body').keyup(function(e) {
+        var stroke = {type: 'keyup', which: e.which};
+
+        connection.send(stroke);
+      });  
+        
+        });
+
+    });
 
       var keyPress = { 
         37: 100,
@@ -63,11 +77,7 @@
         17: 99
       };
 
-      // var conn = peer.connect('other');
-      // conn.on('open', function() {
-      //   conn.send('hi');
-      // });
-
+    
         var nes;
         $(function() {
             nes = new JSNES({
