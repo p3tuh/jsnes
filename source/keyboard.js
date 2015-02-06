@@ -68,6 +68,7 @@ JSNES.Keyboard.prototype = {
     },
 
     keyDown: function(evt) {
+        // console.log('keyDown in keyboard.js: ' +   evt.which);
         console.log(evt);
         if (!this.setKey(evt.keyCode, 0x41) && evt.preventDefault) {
             evt.preventDefault();
@@ -75,12 +76,14 @@ JSNES.Keyboard.prototype = {
     },
     
     keyUp: function(evt) {
+        console.log('keyup in keyboard.js: ' + evt.which);
         if (!this.setKey(evt.keyCode, 0x40) && evt.preventDefault) {
             evt.preventDefault();
         }
     },
     
     keyPress: function(evt) {
+        console.log('keypress in keyboard.js: ' + evt.which);
         evt.preventDefault();
     }
 };

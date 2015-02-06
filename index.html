@@ -8,7 +8,7 @@
 <body>
 
   <div id="emulator"></div>
-    <a href='localhost:8000/player2.html8596'> URL </a>
+    <a href='localhost:8000/player2.html?8596'> URL </a>
      <button id='testing'>D</button>
     <script src="http://cdn.peerjs.com/0.3/peer.js"></script>
     <script src="lib/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
@@ -28,26 +28,29 @@
 
       var url = 'localhost:8000/player2.html?' + rtcId; 
 
-      var peer = new Peer(rtcId, {key: 'j994bvub6smdkj4i', debug: 3});
+      var peer = new Peer(rtcId, {key: 'j994bvub6smdkj4i'});
 
       peer.on('connection', function (connection) {
         connection.on('open', function() {  
-
+            //on incoming data, do the following
+            connection.on('data', function(data) {
+            
             // Handle data sent from player 2. Translate into game button keyup/keydown.
-          connection.on('data', function(data) {
-            //receives a number corresponding to keypress
-            console.log('data received: ' + data); 
-              //trigers keypress in body of browser
-            var key = keyPress[data];
-            console.log('converted key: ' + key);
-            $('.nes-screen').trigger(press)
-          });
+            var convertedKey = keyPress[data.which];
+
+            if (data.type === 'keyup') {
+              nes.keyboard.keyUp({keyCode: convertedKey});
+              // nes.frame();
+            }
+            if (data.type === 'keydown') {
+              nes.keyboard.keyDown({keyCode: convertedKey});
+              // nes.frame();
+            }
+          }); 
         });
       });
 
-      var press = jQuery.Event("keypress");
-      press.ctrlKey = false;
-      press.which = 13;
+      var e = $.Event("keydown", {keyCode: 39});
 
       var keyPress = { 
         37: 100,
