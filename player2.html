@@ -68,11 +68,11 @@
 
     <script type="text/javascript" charset="utf-8">
 
-      var rtcId = location.search.slice(1);
+    var rtcId = location.search.slice(1);
       navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
 // Establish PeerJs connection
-    var peer = new Peer('player2' + rtcId, {key: 'j994bvub6smdkj4i'});
+    var peer = new Peer('player2' + rtcId, {key: 'j994bvub6smdkj4i', debug: 3});
 
 // Connect to your game
     peer.on('open', function (){
@@ -85,6 +85,7 @@
 
         //sending keydown 
       $("body").keydown(function(e) {
+        console.log('keydown ' + e.which);
         
         var stroke = {type: 'keydown', which: e.which};
 
@@ -92,6 +93,7 @@
       });
         //sending keyup
       $('body').keyup(function(e) {
+        console.log('keyup ' + e.which);
         var stroke = {type: 'keyup', which: e.which};
 
         c.send(stroke);
